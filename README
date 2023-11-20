@@ -1,0 +1,45 @@
+main integrada ao SQL Server
+
+* Pacotes necessários
+ - pip install uvicorn
+ - pip install pyodbc
+
+Tabela criada no SSMS:
+
+CREATE TABLE Certidoes 
+(
+    cod_certidao INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    nome VARCHAR(50) NOT NULL,
+    id_ambito INT NOT NULL,
+    estado VARCHAR(50),
+    cidade VARCHAR(50),
+    data_criacao DATETIME,
+    id_status INT NOT NULL,
+);
+
+Para inserir uma certidão, é necessário a certidão estar nesse seguinte modelo:
+
+{
+  "nome": "Nome da Certidão",
+  "id_ambito": 1,
+  "estado": "Estado da Certidão",
+  "cidade": "Cidade da Certidão",
+  "data_criacao": "2023-10-05T10:00:00",
+  "id_status": 1
+}
+
+* data_criacao tem que estar dessa forma porque a coluna "data_criacao" do banco de dados é do tipo date.
+
+OBSERVAÇOES:
+ - Caso queiram fazer o teste na máquina de vocês é preciso fazer alterações nas configurações de conexão feitas na "def criar_conexao_bd():"
+ - Vou deixar um molde para vocês testarem se quiserem
+    def criar_conexao_bd():
+    return pyodbc.connect('Driver={SQL Server};'
+                          'Server={NOME DO SEU SERVIDOR};'
+                          'Database={NOME DO SEU BANCO DE DADOS};'
+                          'Trusted_Connection=yes;')
+- NOME DO SERVIDOR: é o nome que aparece quando você aperta em conectar ao servidor ao abrir o SSMS. Não vai funcionar se você tentar usar o meu que está lá no código. Ou digite "hostname" no cmd do windows.
+- NOME DO SUE BANCO DE DADOS: é o nome do banco que você criou lá no SSMS.
+
+
+
